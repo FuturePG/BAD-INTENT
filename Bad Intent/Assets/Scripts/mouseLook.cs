@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class mouseLook : MonoBehaviour
 {
-    public float mouseSensitivity = 100f;
+    [SerializeField] float minViewDistance = 25f;
+    [SerializeField] Transform playerBody;
 
-    public Transform playerBody;
+    public float mouseSensitivity = 100f;
 
     float xRotation = 0f;
 
@@ -23,7 +24,7 @@ public class mouseLook : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, -90f, minViewDistance);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
