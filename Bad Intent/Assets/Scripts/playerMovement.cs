@@ -1,37 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class playerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float walkSpeed = 10f;
-
-    Vector2 moveInput;
     Rigidbody myRigidbody;
+    PlayerInput playerInput;
+    PlayerInputs playerInputs;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         myRigidbody = GetComponent<Rigidbody>();
+        playerInput = GetComponent<PlayerInput>();
+
+        playerInputs = new PlayerInputs();
+        playerInputs.InGame.Enable();
+        playerInputs.InGame.Jump.performed += Jump;
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 inputVector = playerInputs.InGame.Movement.ReadValue<Vector2>();
+        Debug.Log(inputVector);
+        float speed = 1f;
+        myRigidbody.AddForce(new Vector3(inputVector.x, 0, inputVector.y) * speed, ForceMode.Force);
     }
 
     // Update is called once per frame
-    void Update()
+    void Jump(InputAction.CallbackContext context)
     {
-        Run();
+        Debug.Log(context);
+        if (context.performed)
+        {
+            Debug.Log("Jump! " + context.phase);
+            myRigidbody.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+        }
     }
-
-    void Run()
-    {
-        Vector3 playerVelocity = new Vector3(moveInput.x * walkSpeed, myRigidbody.velocity.y, moveInput.y * walkSpeed);
-        myRigidbody.velocity = transform.TransformDirection(playerVelocity);
-
-    }
-
-    void OnMove(InputValue value)
-    {
-        moveInput = value.Get<Vector2>();
-    }
-    
 }

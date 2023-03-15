@@ -336,7 +336,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ac059f5505b2849afa61de89d3abe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 10
 --- !u!54 &1413981033
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -359,7 +358,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
@@ -448,7 +447,7 @@ PrefabInstance:
     - target: {fileID: 1853276868141526104, guid: 04c0fb7e849a6bd49a9bf4fa4a1b9727,
         type: 3}
       propertyPath: m_NotificationBehavior
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1853276868141526105, guid: 04c0fb7e849a6bd49a9bf4fa4a1b9727,
         type: 3}
@@ -537,7 +536,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 1853276868141526105, guid: 04c0fb7e849a6bd49a9bf4fa4a1b9727, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

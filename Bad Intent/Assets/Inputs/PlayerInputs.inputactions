@@ -15,9 +15,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Looking",
+                    "name": "Jump",
                     "type": "Button",
-                    "id": "f4ba7099-9231-49d2-b04e-129c8787d0b0",
+                    "id": "27caab29-9649-4038-9c1e-e1cdcd7af46d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -26,31 +26,9 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "39dcb068-4eda-437d-b444-f98e8d4f5959",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Looking",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1549591d-b460-4df7-929d-d09573c9d96f",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "WASD",
-                    "id": "4132aed5-c44e-409c-ab29-5af8f143e98c",
-                    "path": "3DVector",
+                    "name": "2D Vector",
+                    "id": "e02e4914-4789-4d00-b300-90f0e0570efb",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -60,83 +38,106 @@
                 },
                 {
                     "name": "up",
-                    "id": "9f7cfb7d-492b-458d-a3d2-7f7762aaa35d",
-                    "path": "",
+                    "id": "87b211c2-e89a-498a-ac65-1f8759094058",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "down",
-                    "id": "cc4a0948-a362-471f-8fed-24aae49e2c2a",
-                    "path": "",
+                    "id": "8cd2f58e-4e03-465d-8579-c8d2eda4e600",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
-                    "id": "393342f7-4241-44dd-b651-69d26ae98d9c",
+                    "id": "46833482-8450-48dd-a6d7-5cde3bf508ef",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
-                    "id": "9d4b84f2-8ef4-46c8-b721-da2cefb56f5c",
+                    "id": "65e10ccc-5c84-4983-a5dc-c9e959030b27",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "forward",
-                    "id": "dd60de00-be24-47c1-b0f1-3a10e0a1ad3b",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "backward",
-                    "id": "403df717-f595-4bb5-9224-855c94bffabc",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "7cb95d25-eb81-481b-97db-87b27d67cea0",
-                    "path": "<Joystick>/stick",
+                    "id": "ff05a463-7535-4e1b-99f0-2d0f9127a076",
+                    "path": "<XInputController>/leftStick",
+                    "interactions": "",
+                    "processors": "StickDeadzone(min=0.5),NormalizeVector2",
+                    "groups": "Xbox Controller",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d0afca3-d957-4312-b6d8-4e9cf668613b",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Movement",
+                    "groups": "Keyboard",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c757b52e-b90d-4d3d-9fa4-748c79fe05cf",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Xbox Controller",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Keyboard",
+            "bindingGroup": "Keyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Xbox Controller",
+            "bindingGroup": "Xbox Controller",
+            "devices": [
+                {
+                    "devicePath": "<XInputController>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }
