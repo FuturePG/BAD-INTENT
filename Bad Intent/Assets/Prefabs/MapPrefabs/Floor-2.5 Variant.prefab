@@ -71,7 +71,17 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 95042b7570abc354d96922a2cea605ec,
         type: 3}
       propertyPath: m_Name
-      value: Floor-2.5
+      value: Floor-2.5 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 95042b7570abc354d96922a2cea605ec,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 95042b7570abc354d96922a2cea605ec,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
