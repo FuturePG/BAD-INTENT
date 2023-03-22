@@ -6,18 +6,16 @@ public class mouseLook : MonoBehaviour
 {
     [SerializeField] float minViewDistance = 25f;
     [SerializeField] Transform playerBody;
-
-    public float mouseSensitivity = 100f;
+    
+    [SerializeField] float mouseSensitivity = 100f;
 
     float xRotation = 0f;
 
-    // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
