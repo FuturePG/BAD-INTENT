@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpHeight = 1f;
     [SerializeField] float groundDistance = 0.4f;
 
+    [SerializeField] float skateboardBoost = 2.0f;
+    [SerializeField] float skateboardCooldown = 30.0f;
+
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundMask;
 
@@ -56,4 +59,13 @@ public class PlayerController : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
     }
+
+    public void Boost(InputAction.CallbackContext context)
+    {
+        if (context.performed && grounded)
+        {
+            velocity.z = Mathf.Sqrt(skateboardBoost * -2f);
+        }
+    }
+
 }
