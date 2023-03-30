@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dc5f34eed5161949b1243430d44f24b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minViewDistance: 25
+  minViewDistance: 50
   playerBody: {fileID: 1853276868141526110}
   mouseSensitivity: 500
 --- !u!114 &2041905610365531135
@@ -247,6 +247,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 27caab29-9649-4038-9c1e-e1cdcd7af46d
     m_ActionName: InGame/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1fd5c726-620a-4496-82ba-35523a88aa7b
+    m_ActionName: InGame/Boost[/Keyboard/shift,/XInputControllerWindows/buttonEast]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: InGame
@@ -294,6 +298,8 @@ MonoBehaviour:
   gravity: -20
   jumpHeight: 1
   groundDistance: 0.4
+  skateboardBoost: 2
+  skateboardCooldown: 30
   groundCheck: {fileID: 5308763393746415855}
   groundMask:
     serializedVersion: 2
