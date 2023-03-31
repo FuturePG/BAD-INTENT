@@ -14,14 +14,21 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     Vector3 move;
 
-    [SerializeField] float speed = 6f;
-    [SerializeField] float gravity = -20f;
+    [SerializeField] float minSpeed = 3f;
+    [SerializeField] float maxSpeed = 7f;
+    [SerializeField] float acceleration = .5f;
+    [SerializeField] float gravity = -9.8f;
     [SerializeField] float jumpHeight = 1f;
     [SerializeField] float groundDistance = 0.4f;
 
+    //Skateboard mechanic 
     [SerializeField] float skateboardBoost = 2.0f;
     [SerializeField] float skateboardCooldown = 30.0f;
 
+    [SerializeField] bool isMoving = false;
+    [SerializeField] bool isJumping = false;
+    [SerializeField] bool isVaulting = false;
+    [SerializeField] bool isSkating = false;
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundMask;
 
@@ -40,9 +47,9 @@ public class PlayerController : MonoBehaviour
         }
 
         move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        controller.Move(move * speed * Time.deltaTime);
+        controller.Move(move * minSpeed * acceleration * Time.deltaTime);
 
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y += -gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
     }
@@ -64,8 +71,12 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed && grounded)
         {
-            velocity.z = Mathf.Sqrt(skateboardBoost * -2f);
+           // velocity.z = 
         }
     }
 
+    void FixedUpdate()
+    {
+        
+    }
 }
