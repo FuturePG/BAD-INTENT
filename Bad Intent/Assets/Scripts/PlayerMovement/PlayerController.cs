@@ -14,16 +14,20 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     Vector3 move;
 
-    [SerializeField] float minSpeed = 3f;
-    [SerializeField] float maxSpeed = 7f;
-    [SerializeField] float acceleration = .5f;
+    //velocity for the movement
+    [SerializeField] float startingVelocity = 5f;
+    [SerializeField] float decelerationVelocity = 3f;
+    [SerializeField] float currentVelocity = 0f;
+    [SerializeField] float minVelocity = 5f;
+    [SerializeField] float maxVelocity = 7f;
+    [SerializeField] float accelerationVelocity = .5f;
     [SerializeField] float gravity = -9.8f;
     [SerializeField] float jumpHeight = 1f;
     [SerializeField] float groundDistance = 0.4f;
 
-    //Skateboard mechanic 
-    [SerializeField] float skateboardBoost = 2.0f;
-    [SerializeField] float skateboardCooldown = 30.0f;
+    //Dash mechanic 
+    [SerializeField] float dash = 2.0f;
+    [SerializeField] float dashCooldown = 30.0f;
 
     [SerializeField] bool isMoving = false;
     [SerializeField] bool isJumping = false;
@@ -44,10 +48,11 @@ public class PlayerController : MonoBehaviour
         if (grounded && velocity.y < 0)
         {
             velocity.y = -2f;
+            currentVelocity = currentVelocity + (decelerationVelocity * Time.deltaTime);
         }
 
         move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        controller.Move(move * minSpeed * acceleration * Time.deltaTime);
+        controller.Move(move * currentVelocity * Time.deltaTime);
 
         velocity.y += -gravity * Time.deltaTime;
 
@@ -57,6 +62,7 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+        currentVelocity = currentVelocity + (accelerationVelocity * Time.deltaTime);
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -71,7 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed && grounded)
         {
-           // velocity.z = 
+          
         }
     }
 
