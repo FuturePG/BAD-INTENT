@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1627422, g: 0.16447654, b: 0.37612787, a: 1}
+  m_IndirectSpecularColor: {r: 0.1627619, g: 0.16447598, b: 0.3762971, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8795,6 +8795,36 @@ PrefabInstance:
         type: 3}
       propertyPath: minSpeed
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718236879347980129, guid: 04c0fb7e849a6bd49a9bf4fa4a1b9727,
+        type: 3}
+      propertyPath: isJumping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718236879347980129, guid: 04c0fb7e849a6bd49a9bf4fa4a1b9727,
+        type: 3}
+      propertyPath: jumpHeight
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718236879347980129, guid: 04c0fb7e849a6bd49a9bf4fa4a1b9727,
+        type: 3}
+      propertyPath: maxVelocity
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718236879347980129, guid: 04c0fb7e849a6bd49a9bf4fa4a1b9727,
+        type: 3}
+      propertyPath: minVelocity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718236879347980129, guid: 04c0fb7e849a6bd49a9bf4fa4a1b9727,
+        type: 3}
+      propertyPath: accelerationVelocity
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718236879347980129, guid: 04c0fb7e849a6bd49a9bf4fa4a1b9727,
+        type: 3}
+      propertyPath: decelerationVelocity
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
