@@ -15,13 +15,12 @@ public class PlayerController : MonoBehaviour
     Vector3 move;
 
     //velocity for the movement
-    [SerializeField] float startingVelocity = 5f;
     [SerializeField] float decelerationVelocity = 3f;
     [SerializeField] float currentVelocity = 0f;
     [SerializeField] float minVelocity = 5f;
     [SerializeField] float maxVelocity = 7f;
-    [SerializeField] float accelerationVelocity = .5f;
-    [SerializeField] float gravity = -9.8f;
+    [SerializeField] float accelerationVelocity = 20f;
+    [SerializeField] float gravity = 9.8f;
     [SerializeField] float jumpHeight = 1f;
     [SerializeField] float groundDistance = 0.4f;
 
@@ -45,16 +44,32 @@ public class PlayerController : MonoBehaviour
     {
         grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if (grounded && velocity.y < 0)
+        if (grounded && Vector2.zero != moveInput)
         {
-            velocity.y = -2f;
-            currentVelocity = currentVelocity + (decelerationVelocity * Time.deltaTime);
+            currentVelocity += (accelerationVelocity * Time.deltaTime);
+            currentVelocity = Math.Clamp(currentVelocity, minVelocity, maxVelocity);
+            moveInput = moveInput.normalized * Time.deltaTime * currentVelocity;
+        }
+        else if (grounded && Vector2.zero == moveInput)
+        {
+            currentVelocity -= decelerationVelocity * Time.deltaTime;
+            currentVelocity = Math.Clamp(currentVelocity, 0f, maxVelocity);
+            moveInput.x = velocity.x;
+            moveInput.y = velocity.y;
+            moveInput = moveInput.normalized * Time.deltaTime * currentVelocity;
+        }
+        velocity = transform.forward*moveInput.y + transform.right*moveInput.x + new Vector3(0,velocity.y,0);
+
+        if (!grounded)
+        {
+            velocity.y -= gravity * Time.deltaTime;
+        }
+        else
+        {
+            velocity.y = 0;
         }
 
-        move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        controller.Move(move * currentVelocity * Time.deltaTime);
 
-        velocity.y += -gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
     }
@@ -62,14 +77,13 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-        currentVelocity = currentVelocity + (accelerationVelocity * Time.deltaTime);
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && grounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            velocity.y = Mathf.Sqrt(jumpHeight * 2f * gravity);
         }
     }
 
@@ -77,12 +91,12 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed && grounded)
         {
-          
+
         }
     }
 
     void FixedUpdate()
     {
-        
+
     }
 }

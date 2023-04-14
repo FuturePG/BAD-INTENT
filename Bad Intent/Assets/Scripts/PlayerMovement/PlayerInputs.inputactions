@@ -92,7 +92,7 @@
                 {
                     "name": "",
                     "id": "ff05a463-7535-4e1b-99f0-2d0f9127a076",
-                    "path": "<Gamepad>/leftStick",
+                    "path": "<XInputController>/leftStick",
                     "interactions": "",
                     "processors": "StickDeadzone(min=0.5),NormalizeVector2",
                     "groups": "Xbox Controller",
@@ -114,7 +114,7 @@
                 {
                     "name": "",
                     "id": "c757b52e-b90d-4d3d-9fa4-748c79fe05cf",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<XInputController>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Xbox Controller",
@@ -136,7 +136,7 @@
                 {
                     "name": "",
                     "id": "9e1d726f-a613-4d54-9eef-610c7f469936",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<XInputController>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
