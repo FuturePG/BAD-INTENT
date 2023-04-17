@@ -29,12 +29,12 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""2ef2b05c-bbe4-4266-bc1c-88364e961654"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Stick"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Jump"",
@@ -114,9 +114,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ff05a463-7535-4e1b-99f0-2d0f9127a076"",
-                    ""path"": ""<XInputController>/leftStick"",
+                    ""path"": ""<XInputController>/dpad"",
                     ""interactions"": """",
-                    ""processors"": ""StickDeadzone(min=0.5),NormalizeVector2"",
+                    ""processors"": ""StickDeadzone,NormalizeVector2"",
                     ""groups"": ""Xbox Controller"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
