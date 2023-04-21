@@ -27,6 +27,8 @@ public class SimpDetector : MonoBehaviour
     [SerializeField] float DetectionBuildRate = 0.5f;
     [SerializeField] float DetectionDecayRate = 0.5f;
     [SerializeField] List<string> DetectableTags;
+    [SerializeField] LayerMask DetectionLayerMask = ~0;
+    float CosDetectionHalfAngle;
 
     public RenderTexture OutputTexture { get; private set; }
     public string DisplayName => _DisplayName;
@@ -57,6 +59,9 @@ public class SimpDetector : MonoBehaviour
         DetectionLight.spotAngle = DetectionHalfAngle * 2f;
         DetectionTrigger.radius = DetectionRange;
 
+        // cache the detection data
+        CosDetectionHalfAngle = Mathf.Cos(Mathf.Deg2Rad * DetectionHalfAngle);
+
         if (SyncToMainCameraConfig)
         {
             LinkedCamera.clearFlags = Camera.main.clearFlags;
@@ -82,16 +87,45 @@ public class SimpDetector : MonoBehaviour
         PivotPoint.transform.localEulerAngles = new Vector3(0f, CurrentAngle, DefaultPitch);
     }
 
+    GameObject CurrentlyDetectedTarget;
+
     void RefreshTargetInfo()
     {
+        float highestDetectionLevel = 0f;
+        CurrentlyDetectedTarget = null;
+
         // refresh each target
-        foreach(var target in AllTargets)
+        foreach (var target in AllTargets)
         {
-            var targetInfo = target.Value;
+            var targetInfo = target.Value;bool isVisible = false;
 
             // is the SIMP in the field of view
             Vector3 vecToTarget = targetInfo.LinkedGO.transform.position - LinkedCamera.transform.position;
-            
+            if (Vector3.Dot(LinkedCamera.transform.forward, vecToTarget.normalized) >= CosDetectionHalfAngle)
+            {
+                // check if we can see the target
+                RaycastHit hitInfo;
+                if (Physics.Raycast(LinkedCamera.transform.position, LinkedCamera.transform.forward, 
+                                    out hitInfo, DetectionRange, DetectionLayerMask, QueryTriggerInteraction.Ignore))
+                {
+                    if (hitInfo.collider.gameObject == targetInfo.LinkedGO)
+                        isVisible = true;
+                }
+            }
+
+            // update detection level
+            targetInfo.InFOV = isVisible;
+            if (isVisible)
+                targetInfo.DetectionLevel = Mathf.Clamp01(targetInfo.DetectionLevel + DetectionBuildRate * Time.deltaTime);
+            else
+                targetInfo.DetectionLevel = Mathf.Clamp01(targetInfo.DetectionLevel + DetectionDecayRate * Time.deltaTime);
+
+            // found new more detected target?
+            if (targetInfo.DetectionLevel > highestDetectionLevel)
+            {
+                highestDetectionLevel = targetInfo.DetectionLevel;
+                CurrentlyDetectedTarget = targetInfo.LinkedGO;
+            }
         }
     }
 
