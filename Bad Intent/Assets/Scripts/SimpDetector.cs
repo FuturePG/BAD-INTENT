@@ -35,6 +35,15 @@ public class SimpDetector : MonoBehaviour
     bool SweepClockwise = true;
     List<SecurityConsole> CurrentlyWatchingConsoles = new List<SecurityConsole>();
 
+    class PotentialTarget
+    {
+        public GameObject LinkedGO;
+        public bool InFOV;
+        public float DetectionLevel;
+    }
+
+    Dictionary<GameObject, PotentialTarget> AllTargets = new Dictionary<GameObject, PotentialTarget>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +71,8 @@ public class SimpDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RefreshTargetInfo();
+
         // Update the angle
         CurrentAngle += SweepSpeed * Time.deltaTime * (SweepClockwise ? 1f : -1f);
         if (Mathf.Abs(CurrentAngle) >= (AngleSwept * 0.5f))
@@ -71,28 +82,36 @@ public class SimpDetector : MonoBehaviour
         PivotPoint.transform.localEulerAngles = new Vector3(0f, CurrentAngle, DefaultPitch);
     }
 
-    class PotentialTarget
+    void RefreshTargetInfo()
     {
-        public GameObject LinkedGO;
-        public bool InFOV;
-        public float DetectionLevel;
-    }
+        // refresh each target
+        foreach(var target in AllTargets)
+        {
+            var targetInfo = target.Value;
 
-    Dictionary<GameObject, PotentialTarget> AllTargets = new Dictionary<GameObject, PotentialTarget>();
+            // is the SIMP in the field of view
+            Vector3 vecToTarget = targetInfo.LinkedGO.transform.position - LinkedCamera.transform.position;
+            
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
+        // skip if the tag isn't supported
         if (!DetectableTags.Contains(other.tag))
             return;
 
+        // add to our target list
         AllTargets[other.gameObject] = new PotentialTarget() { LinkedGO = other.gameObject };
     }
 
     private void OnTriggerExit(Collider other)
     {
+        // skip if the tag isn't supported
         if (!DetectableTags.Contains(other.tag))
             return;
 
+        // remove to our target list
         AllTargets.Remove(other.gameObject);
     }
 }
