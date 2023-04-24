@@ -26,6 +26,7 @@ public class SimpDetector : MonoBehaviour
     [SerializeField] Color Colour_FullyDetected = Color.red;
     [SerializeField] float DetectionBuildRate = 0.5f;
     [SerializeField] float DetectionDecayRate = 0.5f;
+    [SerializeField] [Range(0f, 1f)] float SussusMoogas = 0.5f;
     [SerializeField] List<string> DetectableTags;
     [SerializeField] LayerMask DetectionLayerMask = ~0;
     float CosDetectionHalfAngle;
@@ -33,9 +34,11 @@ public class SimpDetector : MonoBehaviour
     public RenderTexture OutputTexture { get; private set; }
     public string DisplayName => _DisplayName;
 
+    public GameObject CurrentlyDetectedTarget { get; private set; }
+
     float CurrentAngle = 0f;
     bool SweepClockwise = true;
-    List<SecurityConsole> CurrentlyWatchingConsoles = new List<SecurityConsole>();
+    // List<SecurityConsole> CurrentlyWatchingConsoles = new List<SecurityConsole>();
 
     class PotentialTarget
     {
@@ -73,21 +76,39 @@ public class SimpDetector : MonoBehaviour
         LinkedCamera.targetTexture = OutputTexture;
     }
 
+    [SerializeField] float TargetVOffset = 1f;
+    [SerializeField] float MaxRotationSpeed = 15f;
+
     // Update is called once per frame
     void Update()
     {
         RefreshTargetInfo();
 
-        // Update the angle
-        CurrentAngle += SweepSpeed * Time.deltaTime * (SweepClockwise ? 1f : -1f);
-        if (Mathf.Abs(CurrentAngle) >= (AngleSwept * 0.5f))
-            SweepClockwise = !SweepClockwise;
+        Quaternion desiredRotation = PivotPoint.transform.rotation;
 
-        // Rotate Camera
-        PivotPoint.transform.localEulerAngles = new Vector3(0f, CurrentAngle, DefaultPitch);
+        // if sus simp enters then stop rotating automatically
+        if (CurrentlyDetectedTarget != null && AllTargets[CurrentlyDetectedTarget].DetectionLevel >= SussusMoogas)
+        {
+            if (AllTargets[CurrentlyDetectedTarget].InFOV)
+            {
+                var vecToTarget = (CurrentlyDetectedTarget.transform.position + TargetVOffset * Vector3.up - PivotPoint.transform.position).normalized;
+
+                desiredRotation = Quaternion.LookRotation(vecToTarget, Vector3.up) * Quaternion.Euler(0f, 90f, 0f);
+            }
+        }
+        else
+        {
+            // Update the angle
+            CurrentAngle += SweepSpeed * Time.deltaTime * (SweepClockwise ? 1f : -1f);
+            if (Mathf.Abs(CurrentAngle) >= (AngleSwept * 0.5f))
+                SweepClockwise = !SweepClockwise;
+
+            // Calculate Rotation
+            desiredRotation = PivotPoint.transform.rotation * Quaternion.Euler(0f, CurrentAngle, DefaultPitch);
+        }
+
+        PivotPoint.transform.rotation = Quaternion.RotateTowards(PivotPoint.transform.rotation, desiredRotation, MaxRotationSpeed * Time.deltaTime);
     }
-
-    GameObject CurrentlyDetectedTarget;
 
     void RefreshTargetInfo()
     {
@@ -97,7 +118,9 @@ public class SimpDetector : MonoBehaviour
         // refresh each target
         foreach (var target in AllTargets)
         {
-            var targetInfo = target.Value;bool isVisible = false;
+            var targetInfo = target.Value;
+
+            bool isVisible = false;
 
             // is the SIMP in the field of view
             Vector3 vecToTarget = targetInfo.LinkedGO.transform.position - LinkedCamera.transform.position;
@@ -127,6 +150,12 @@ public class SimpDetector : MonoBehaviour
                 CurrentlyDetectedTarget = targetInfo.LinkedGO;
             }
         }
+
+        // update the light colour
+        if (CurrentlyDetectedTarget != null)
+            DetectionLight.color = Color.Lerp(Colour_NothingDetected, Colour_FullyDetected, highestDetectionLevel);
+        else
+            DetectionLight.color = Colour_NothingDetected;
     }
 
     private void OnTriggerEnter(Collider other)
