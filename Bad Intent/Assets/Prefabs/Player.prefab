@@ -295,11 +295,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 12
-  gravity: -20
-  jumpHeight: 1
+  maxSpeed: 40
+  whatIsThis: 0
+  gravity: -50
+  jumpHeight: 2
   groundDistance: 0.4
-  skateboardBoost: 2
-  skateboardCooldown: 30
   groundCheck: {fileID: 5308763393746415855}
   groundMask:
     serializedVersion: 2
