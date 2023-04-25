@@ -15,9 +15,9 @@ public class PlayerController : MonoBehaviour
     Vector3 move;
 
     [SerializeField] float speed = 6f;
-    [SerializeField] float maxSpeed = 6f;
+    //[SerializeField] float maxSpeed = 6f;
 
-    [SerializeField] float whatIsThis = 0f;
+    //[SerializeField] float whatIsThis = 0f;
     [SerializeField] float gravity = -20f;
     [SerializeField] float jumpHeight = 1f;
     [SerializeField] float groundDistance = 0.4f;
