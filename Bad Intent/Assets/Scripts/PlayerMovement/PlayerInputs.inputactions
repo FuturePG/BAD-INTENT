@@ -122,6 +122,17 @@
                 },
                 {
                     "name": "",
+                    "id": "3b3609e8-73a5-4828-93fe-cd1c60d2b6cc",
+                    "path": "<XInputController>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "9d0afca3-d957-4312-b6d8-4e9cf668613b",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -178,7 +189,7 @@
                 {
                     "name": "",
                     "id": "8c20b1a1-3b65-4d7b-bfbb-b3a320f650ed",
-                    "path": "",
+                    "path": "<XInputController>/rightStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     Vector3 move;
 
-    
+    [SerializeField]AnimationCurve accelerationCurve;
+
     // Player gravity
     [SerializeField] float gravity = -20f;
     [SerializeField] float jumpHeight = 1f;
@@ -23,8 +24,8 @@ public class PlayerController : MonoBehaviour
     // Player speed and acceleration
     [SerializeField] float minAcceleration = 0f;
     [SerializeField] float maxAcceleration = 7f;
-    [SerializeField] float acceleration = 6f;
-    [SerializeField] float currentSpeed = 0f;
+    [SerializeField] float acceleration = 5f;
+    [SerializeField] float currentSpeed =0f;
 
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundMask;
@@ -44,10 +45,19 @@ public class PlayerController : MonoBehaviour
         }
 
         move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        controller.Move(move * acceleration * Time.deltaTime);
-        acceleration = currentSpeed * Time.deltaTime;
+        controller.Move(move * currentSpeed * Time.deltaTime);
 
+        // The start of player acceleration
+
+        currentSpeed = acceleration * accelerationCurve .Evaluate(Time.deltaTime);
         acceleration = Mathf.Clamp(acceleration, minAcceleration, maxAcceleration);
+
+        if (controller.Move(move * currentSpeed * Time.deltaTime) == CollisionFlags.None)
+        {
+            accelerationCurve = new AnimationCurve();
+        }
+
+        //Gravity
 
         velocity.y += gravity * Time.deltaTime;
 
