@@ -14,13 +14,17 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     Vector3 move;
 
-    [SerializeField] float speed = 6f;
-    //[SerializeField] float maxSpeed = 6f;
-
-    //[SerializeField] float whatIsThis = 0f;
+    
+    // Player gravity
     [SerializeField] float gravity = -20f;
     [SerializeField] float jumpHeight = 1f;
     [SerializeField] float groundDistance = 0.4f;
+
+    // Player speed and acceleration
+    [SerializeField] float minAcceleration = 0f;
+    [SerializeField] float maxAcceleration = 7f;
+    [SerializeField] float acceleration = 6f;
+    [SerializeField] float currentSpeed = 0f;
 
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundMask;
@@ -40,11 +44,15 @@ public class PlayerController : MonoBehaviour
         }
 
         move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        controller.Move(move * speed * Time.deltaTime);
+        controller.Move(move * acceleration * Time.deltaTime);
+        acceleration = currentSpeed * Time.deltaTime;
+
+        acceleration = Mathf.Clamp(acceleration, minAcceleration, maxAcceleration);
 
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+         
     }
 
     public void Move(InputAction.CallbackContext context)
