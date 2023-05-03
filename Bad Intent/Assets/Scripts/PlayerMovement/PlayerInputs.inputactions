@@ -9,7 +9,7 @@
                     "name": "Movement",
                     "type": "Value",
                     "id": "2ef2b05c-bbe4-4266-bc1c-88364e961654",
-                    "expectedControlType": "Stick",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -33,9 +33,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Look",
+                    "name": "Settings",
                     "type": "Button",
-                    "id": "95c9bd64-8a24-4545-acd1-74cb04a0c824",
+                    "id": "1efe8b36-8c90-4d3a-8046-1ab8b20d3fa9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -101,7 +101,7 @@
                 {
                     "name": "",
                     "id": "ff05a463-7535-4e1b-99f0-2d0f9127a076",
-                    "path": "<XInputController>/dpad",
+                    "path": "<XInputController>/leftStick",
                     "interactions": "",
                     "processors": "StickDeadzone,NormalizeVector2",
                     "groups": "Xbox Controller",
@@ -111,11 +111,11 @@
                 },
                 {
                     "name": "",
-                    "id": "f25f4934-5086-49f7-9be3-75a142504b85",
-                    "path": "<Joystick>/stick",
+                    "id": "d198d4a9-12ca-494f-884e-58da3b7708e2",
+                    "path": "<XInputController>/dpad",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Xbox Controller",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -177,12 +177,23 @@
                 },
                 {
                     "name": "",
-                    "id": "8c20b1a1-3b65-4d7b-bfbb-b3a320f650ed",
-                    "path": "",
+                    "id": "3fb6277d-9b85-4ed1-8ce2-1eae05cec4e4",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Look",
+                    "action": "Settings",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2951ca84-6057-470a-9aff-44b24dc62c16",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Settings",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

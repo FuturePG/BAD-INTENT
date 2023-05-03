@@ -31,7 +31,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""name"": ""Movement"",
                     ""type"": ""Value"",
                     ""id"": ""2ef2b05c-bbe4-4266-bc1c-88364e961654"",
-                    ""expectedControlType"": ""Stick"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -55,9 +55,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Look"",
+                    ""name"": ""Settings"",
                     ""type"": ""Button"",
-                    ""id"": ""95c9bd64-8a24-4545-acd1-74cb04a0c824"",
+                    ""id"": ""1efe8b36-8c90-4d3a-8046-1ab8b20d3fa9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -123,7 +123,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ff05a463-7535-4e1b-99f0-2d0f9127a076"",
-                    ""path"": ""<XInputController>/dpad"",
+                    ""path"": ""<XInputController>/leftStick"",
                     ""interactions"": """",
                     ""processors"": ""StickDeadzone,NormalizeVector2"",
                     ""groups"": ""Xbox Controller"",
@@ -133,11 +133,11 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f25f4934-5086-49f7-9be3-75a142504b85"",
-                    ""path"": ""<Joystick>/stick"",
+                    ""id"": ""d198d4a9-12ca-494f-884e-58da3b7708e2"",
+                    ""path"": ""<XInputController>/dpad"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Xbox Controller"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -199,12 +199,23 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8c20b1a1-3b65-4d7b-bfbb-b3a320f650ed"",
-                    ""path"": """",
+                    ""id"": ""3fb6277d-9b85-4ed1-8ce2-1eae05cec4e4"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""Settings"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2951ca84-6057-470a-9aff-44b24dc62c16"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Settings"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -241,7 +252,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         m_InGame_Movement = m_InGame.FindAction("Movement", throwIfNotFound: true);
         m_InGame_Jump = m_InGame.FindAction("Jump", throwIfNotFound: true);
         m_InGame_Boost = m_InGame.FindAction("Boost", throwIfNotFound: true);
-        m_InGame_Look = m_InGame.FindAction("Look", throwIfNotFound: true);
+        m_InGame_Settings = m_InGame.FindAction("Settings", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -304,7 +315,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Movement;
     private readonly InputAction m_InGame_Jump;
     private readonly InputAction m_InGame_Boost;
-    private readonly InputAction m_InGame_Look;
+    private readonly InputAction m_InGame_Settings;
     public struct InGameActions
     {
         private @PlayerInputs m_Wrapper;
@@ -312,7 +323,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_InGame_Movement;
         public InputAction @Jump => m_Wrapper.m_InGame_Jump;
         public InputAction @Boost => m_Wrapper.m_InGame_Boost;
-        public InputAction @Look => m_Wrapper.m_InGame_Look;
+        public InputAction @Settings => m_Wrapper.m_InGame_Settings;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -331,9 +342,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 @Boost.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnBoost;
                 @Boost.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnBoost;
                 @Boost.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnBoost;
-                @Look.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnLook;
+                @Settings.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnSettings;
+                @Settings.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnSettings;
+                @Settings.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnSettings;
             }
             m_Wrapper.m_InGameActionsCallbackInterface = instance;
             if (instance != null)
@@ -347,9 +358,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 @Boost.started += instance.OnBoost;
                 @Boost.performed += instance.OnBoost;
                 @Boost.canceled += instance.OnBoost;
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
+                @Settings.started += instance.OnSettings;
+                @Settings.performed += instance.OnSettings;
+                @Settings.canceled += instance.OnSettings;
             }
         }
     }
@@ -377,6 +388,6 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnBoost(InputAction.CallbackContext context);
-        void OnLook(InputAction.CallbackContext context);
+        void OnSettings(InputAction.CallbackContext context);
     }
 }

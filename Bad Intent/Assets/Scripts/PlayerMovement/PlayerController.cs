@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float minAcceleration = 0f;
     [SerializeField] float maxAcceleration = 7f;
     [SerializeField] float acceleration = 6f;
-    [SerializeField] float currentSpeed = 0f;
+    [SerializeField] float currentSpeed = 5f;
 
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundMask;
@@ -45,9 +45,10 @@ public class PlayerController : MonoBehaviour
 
         move = transform.right * moveInput.x + transform.forward * moveInput.y;
         controller.Move(move * acceleration * Time.deltaTime);
+
         acceleration = currentSpeed * Time.deltaTime;
 
-        acceleration = Mathf.Clamp(acceleration, minAcceleration, maxAcceleration);
+        Mathf.Clamp(acceleration, minAcceleration, maxAcceleration);
 
         velocity.y += gravity * Time.deltaTime;
 
