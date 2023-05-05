@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4699191542509910421}
   - component: {fileID: 4699191542509910420}
-  - component: {fileID: 4699191542509910423}
+  - component: {fileID: 8602136871036811184}
   m_Layer: 0
   m_Name: LevelSwitch
   m_TagString: Untagged
@@ -26,12 +26,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4699191542509910422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 38.0038, y: 250.02501, z: -16.68247}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4699191542509910420
 BoxCollider:
@@ -54,7 +54,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1710739, y: 2.6080475, z: 0.53744316}
   m_Center: {x: -0.08553696, y: 0.80402374, z: 0.23127842}
---- !u!114 &4699191542509910423
+--- !u!114 &8602136871036811184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4699191542509910422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd17f0e86c807574c9b96b77f712f240, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e7fb57b88e658b4b864f1878ea33a9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sceneBuildIndex: 0
