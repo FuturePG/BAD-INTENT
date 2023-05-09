@@ -1,37 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class mouseLook : MonoBehaviour
 {
-    [SerializeField] float minViewDistance = -25f;
-    [SerializeField] float maxViewDistance = 25f;
+    [SerializeField] float minViewDistance = 25f;
     [SerializeField] Transform playerBody;
+    
+    [SerializeField] float mouseSensitivity = 100f;
 
-    [SerializeField] CharacterController controller;
-    [SerializeField] PlayerInputs playerControls;
-    public float sensitivity = 100f;
-
-    Vector2 lookValue;
-    Vector2 lookVector;
-    Quaternion activeVector;
+    float xRotation = 0f;
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void Update()
+    void LateUpdate()
     {
-        lookVector += lookValue * sensitivity * Time.deltaTime;
-        lookVector.y = Mathf.Clamp(lookVector.y, minViewDistance, maxViewDistance);
-        transform.rotation = Quaternion.Euler(lookVector.x, 0, 0);
-        transform.rotation = Quaternion.Euler(0, lookVector.y, 0);
-    }
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-    public void Look(InputAction.CallbackContext context)
-    {
-        lookValue = context.ReadValue<Vector2>();
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, minViewDistance);
+
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        playerBody.Rotate(Vector3.up * mouseX);
     }
 }
