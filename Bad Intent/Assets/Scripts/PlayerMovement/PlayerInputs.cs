@@ -31,7 +31,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""name"": ""Movement"",
                     ""type"": ""Value"",
                     ""id"": ""2ef2b05c-bbe4-4266-bc1c-88364e961654"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Stick"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
