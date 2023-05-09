@@ -62,15 +62,6 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Spray"",
-                    ""type"": ""Button"",
-                    ""id"": ""58017967-28d1-4af7-a7fa-a7f23e0adb60"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -227,28 +218,6 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c8544dc3-fb26-4e5c-a38e-e62ad0ab138b"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Spray"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1286383e-b8c9-4949-a1dd-98829e999026"",
-                    ""path"": ""<XInputController>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Xbox Controller"",
-                    ""action"": ""Spray"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -284,7 +253,6 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         m_InGame_Jump = m_InGame.FindAction("Jump", throwIfNotFound: true);
         m_InGame_Boost = m_InGame.FindAction("Boost", throwIfNotFound: true);
         m_InGame_Look = m_InGame.FindAction("Look", throwIfNotFound: true);
-        m_InGame_Spray = m_InGame.FindAction("Spray", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -348,7 +316,6 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Jump;
     private readonly InputAction m_InGame_Boost;
     private readonly InputAction m_InGame_Look;
-    private readonly InputAction m_InGame_Spray;
     public struct InGameActions
     {
         private @PlayerInputs m_Wrapper;
@@ -357,7 +324,6 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_InGame_Jump;
         public InputAction @Boost => m_Wrapper.m_InGame_Boost;
         public InputAction @Look => m_Wrapper.m_InGame_Look;
-        public InputAction @Spray => m_Wrapper.m_InGame_Spray;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -379,9 +345,6 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnLook;
-                @Spray.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnSpray;
-                @Spray.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnSpray;
-                @Spray.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnSpray;
             }
             m_Wrapper.m_InGameActionsCallbackInterface = instance;
             if (instance != null)
@@ -398,9 +361,6 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
-                @Spray.started += instance.OnSpray;
-                @Spray.performed += instance.OnSpray;
-                @Spray.canceled += instance.OnSpray;
             }
         }
     }
@@ -429,6 +389,5 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnBoost(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnSpray(InputAction.CallbackContext context);
     }
 }

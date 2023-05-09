@@ -30,9 +30,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundMask;
 
-    //Spraying
-    [SerializeField] public GameObject spray;
-
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -64,7 +61,8 @@ public class PlayerController : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
 
-        controller.Move(velocity * Time.deltaTime);         
+        controller.Move(velocity * Time.deltaTime);
+         
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -78,14 +76,5 @@ public class PlayerController : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
-    }
-
-    public void Spray(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            print("we started spraying");
-        }
-        
     }
 }
