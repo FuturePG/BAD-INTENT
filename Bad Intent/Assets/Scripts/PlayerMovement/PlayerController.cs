@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     Vector3 velocity;
     Vector2 moveInput;
     Vector3 move;
+    Vector2 lookInput;
+    Vector2 lookVector;
+    float lookRotation = 0;
 
     [SerializeField]AnimationCurve accelerationCurve;
 
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float maxAcceleration = 7f;
     [SerializeField] float acceleration = 5f;
     [SerializeField] float currentSpeed =5f;
+    [SerializeField] float lookSensitivity = 1f;
 
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundMask;
@@ -40,6 +44,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(lookInput);
+
         grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (grounded && velocity.y < 0)
@@ -50,17 +56,18 @@ public class PlayerController : MonoBehaviour
         move = transform.right * moveInput.x + transform.forward * moveInput.y;
         controller.Move(move * currentSpeed * Time.deltaTime);
 
-       // The start of player acceleration
+        // The start of player acceleration
 
-       // currentSpeed = acceleration * accelerationCurve .Evaluate(Time.deltaTime);
-       // acceleration = Mathf.Clamp(acceleration, minAcceleration, maxAcceleration);
-
-        if (controller.Move(move * currentSpeed * Time.deltaTime) == CollisionFlags.None)
-        {
-            accelerationCurve = new AnimationCurve();
-        }
+        // currentSpeed = acceleration * accelerationCurve .Evaluate(Time.deltaTime);
+        // acceleration = Mathf.Clamp(acceleration, minAcceleration, maxAcceleration);
 
         //Gravity
+
+        lookRotation -= lookInput.y;
+        lookRotation = Mathf.Clamp(lookRotation, -90f, 90f);
+
+        transform.localRotation = Quaternion.Euler(lookRotation, 0f, 0f);
+        transform.Rotate(Vector3.up * lookInput.x);
 
         velocity.y += gravity * Time.deltaTime;
 
@@ -86,6 +93,10 @@ public class PlayerController : MonoBehaviour
         {
             print("we started spraying");
         }
-        
+    }
+
+    public void Look(InputAction.CallbackContext context)
+    {
+        lookInput = context.ReadValue<Vector2>() * lookSensitivity;
     }
 }

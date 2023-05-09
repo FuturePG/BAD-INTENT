@@ -260,7 +260,6 @@ GameObject:
   - component: {fileID: 1853276867828437969}
   - component: {fileID: 1853276867828437974}
   - component: {fileID: 1853276867828437975}
-  - component: {fileID: 2623006501972537847}
   - component: {fileID: 2041905610365531135}
   - component: {fileID: 720147651}
   m_Layer: 6
@@ -344,21 +343,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853276867828437972}
   m_Enabled: 1
---- !u!114 &2623006501972537847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1853276867828437972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dc5f34eed5161949b1243430d44f24b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minViewDistance: 50
-  playerBody: {fileID: 1853276868141526110}
-  mouseSensitivity: 500
 --- !u!114 &2041905610365531135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,7 +518,7 @@ Transform:
   - {fileID: 5308763393746415855}
   - {fileID: 262777110}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1853276868141526104
 MonoBehaviour:
@@ -680,6 +664,7 @@ MonoBehaviour:
   maxAcceleration: 7
   acceleration: 5
   currentSpeed: 5
+  lookSensitivity: 1
   groundCheck: {fileID: 5308763393746415855}
   groundMask:
     serializedVersion: 2
